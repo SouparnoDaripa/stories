@@ -1,0 +1,5 @@
+com.daripa.stories
+com.daripa.stories.controller
+com.daripa.stories.dao
+com.daripa.stories.model
+com.daripa.stories.repository

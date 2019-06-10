@@ -1,0 +1,6 @@
+com\daripa\stories\StoriesApplication.class
+com\daripa\stories\model\Story.class
+com\daripa\stories\controller\UserController.class
+com\daripa\stories\model\User.class
+com\daripa\stories\repository\UserRepository.class
+com\daripa\stories\dao\UserDAO.class
