@@ -12,7 +12,7 @@ public interface StoryRepository extends JpaRepository<Story, Long> {
 
 	List<Story> findByTopic(String topic);
 
-	List<Story> findByAuthorId(Long authorId);
+	List<Story> findByUserId(Long authorId);
 
 	// List<Story> findByTags(String tag);
 }

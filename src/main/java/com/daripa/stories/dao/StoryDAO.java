@@ -5,19 +5,31 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.daripa.stories.exception.ResourceNotFoundException;
 import com.daripa.stories.model.Story;
+import com.daripa.stories.model.User;
 import com.daripa.stories.repository.StoryRepository;
+import com.daripa.stories.repository.UserRepository;
 
 public class StoryDAO {
 
 	@Autowired
 	StoryRepository storyRepository;
 
+	@Autowired
+	UserRepository userRepository;
+
 	/*
 	 * Save a Story in table
 	 */
-	public Story save(Story story) {
-		return storyRepository.save(story);
+	public Story save(Story story, Long id) {
+		Optional<User> author = userRepository.findById(id);
+		if (!author.isPresent()) {
+			story.setAuthor((User) author.get());
+			return storyRepository.save(story);
+		} else {
+			throw new ResourceNotFoundException("User with User Id " + id + " not found");
+		}
 	}
 
 	/*
@@ -44,21 +56,21 @@ public class StoryDAO {
 	/*
 	 * Fetches all stories by tags from table
 	 */
-//	public List<Story> findByTags() {
-//		return storyRepository.findByTags();
-//	}
+	// public List<Story> findByTags() {
+	// return storyRepository.findByTags();
+	// }
 
 	/*
 	 * Fetches all stories by author from table
 	 */
 	public List<Story> findByAuthorId(Long id) {
-		return storyRepository.findByAuthorId(id);
+		return storyRepository.findByUserId(id);
 	}
 
 	/*
 	 * Update a User from table
 	 */
-	public Story update(Story story) {
-		return this.save(story);
+	public Story update(Story story, Long id) {
+		return this.save(story, id);
 	}
 }

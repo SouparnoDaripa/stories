@@ -1,5 +1,7 @@
 package com.daripa.stories.controller;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,32 +25,32 @@ public class StoryController {
 	/*
 	 * Save a story
 	 */
-	@PostMapping("/create")
-	public Story createStory(@Valid @RequestBody Story story) {
-		return storyDAO.save(story);
+	@PostMapping("{id}/create")
+	public Story createStory(@Valid @RequestBody Story story, @PathVariable(value = "id") Long id) {
+		return storyDAO.save(story, id);
 	}
 
 	/*
 	 * Get the list of all stories
 	 */
 	@GetMapping("/query")
-	public Story getStories(@Valid @RequestBody Story story) {
-		return storyDAO.save(story);
+	public List<Story> getStories(@Valid @RequestBody Story story) {
+		return storyDAO.findAll();
 	}
 
 	/*
 	 * Get the list of stories
 	 */
 	@GetMapping("/query/1/{topic}")
-	public Story getStoriesByTopic(@Valid @RequestBody Story story, @PathVariable(value = "topic") String topic) {
-		return storyDAO.save(story);
+	public List<Story> getStoriesByTopic(@PathVariable(value = "topic") String topic) {
+		return storyDAO.findByTopic(topic);
 	}
 
 	/*
 	 * Get the list of stories
 	 */
 	@GetMapping("/query/2/{id}")
-	public Story getStoriesByTopic(@Valid @RequestBody Story story, @PathVariable(value = "id") Long noteId) {
-		return storyDAO.save(story);
+	public List<Story> getStoriesByUserId(@PathVariable(value = "id") Long id) {
+		return storyDAO.findByAuthorId(id);
 	}
 }
