@@ -1,6 +1,7 @@
 package com.daripa.stories.model;
 
-import java.sql.Date;
+import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -26,7 +27,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @Entity
 @Table(name = "stories")
 @EntityListeners(AuditingEntityListener.class)
-public class Story {
+public class Story implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -86,7 +87,7 @@ public class Story {
 	@JoinColumn(name = "user_id", nullable = false)
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	@JsonIgnoreProperties
-	private User author;
+	private User user;
 
 	public Long getStoryId() {
 		return storyId;
@@ -161,10 +162,10 @@ public class Story {
 	}
 
 	public User getAuthor() {
-		return author;
+		return user;
 	}
 
 	public void setAuthor(User author) {
-		this.author = author;
+		this.user = author;
 	}
 }

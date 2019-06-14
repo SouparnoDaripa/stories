@@ -1,11 +1,11 @@
 package com.daripa.stories.dao;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.daripa.stories.exception.ResourceNotFoundException;
 import com.daripa.stories.model.User;
 import com.daripa.stories.repository.UserRepository;
 
@@ -33,6 +33,13 @@ public class UserDAO {
 	}
 
 	/*
+	 * Update a User from table
+	 */
+	public User update(User user) {
+		return this.save(user);
+	}
+
+	/*
 	 * search all users from the table
 	 */
 	public List<User> findAll() {
@@ -42,14 +49,54 @@ public class UserDAO {
 	/*
 	 * Search a User in table by User Id
 	 */
-	public Optional<User> findById(Long id) {
-		return userRepository.findById(id);
+	public User findById(Long id) {
+		return userRepository.findById(id)
+				.orElseThrow(() -> new ResourceNotFoundException("User with userId " + id + "doesnot exist"));
 	}
 
 	/*
-	 * Update a User from table
+	 * Search a User in table by Email Address
 	 */
-	public User update(User user) {
-		return this.save(user);
+	public User findByEmail(String email) {
+		return userRepository.findByEmail(email)
+				.orElseThrow(() -> new ResourceNotFoundException("User with email address " + email + "doesnot exist"));
 	}
+
+	/*
+	 * Search a User in table by Username or Email Address
+	 */
+	public User findByUsernameOrEmail(String username, String email) {
+		return userRepository.findByUsernameOrEmail(username, email).orElseThrow(() -> new ResourceNotFoundException(
+				"User with username " + username + " or email address " + email + "doesnot exist"));
+	}
+
+	/*
+	 * Search a User in table by Username
+	 */
+	public User findByUsername(String username) {
+		return userRepository.findByUsername(username)
+				.orElseThrow(() -> new ResourceNotFoundException("User with username " + username + "doesnot exist"));
+	}
+
+	/*
+	 * Search the list of users in table by ids
+	 */
+	public List<User> findByIds(List<Long> userIds) {
+		return userRepository.findByIdIn(userIds);
+	}
+
+	/*
+	 * Check whether User exists with username
+	 */
+	public Boolean existsByUsername(String username) {
+		return userRepository.existsByUsername(username);
+	}
+
+	/*
+	 * Check whether User exists with email address
+	 */
+	public Boolean existsByEmail(String email) {
+		return userRepository.existsByEmail(email);
+	}
+
 }

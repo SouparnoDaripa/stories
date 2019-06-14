@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.daripa.stories.exception.ResourceNotFoundException;
 import com.daripa.stories.model.Story;
@@ -11,20 +12,20 @@ import com.daripa.stories.model.User;
 import com.daripa.stories.repository.StoryRepository;
 import com.daripa.stories.repository.UserRepository;
 
+@Service
 public class StoryDAO {
 
 	@Autowired
-	StoryRepository storyRepository;
-
-	@Autowired
 	UserRepository userRepository;
+	@Autowired
+	StoryRepository storyRepository;
 
 	/*
 	 * Save a Story in table
 	 */
 	public Story save(Story story, Long id) {
 		Optional<User> author = userRepository.findById(id);
-		if (!author.isPresent()) {
+		if (author.isPresent()) {
 			story.setAuthor((User) author.get());
 			return storyRepository.save(story);
 		} else {
