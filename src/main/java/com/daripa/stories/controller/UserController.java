@@ -16,7 +16,7 @@ import com.daripa.stories.dao.UserDAO;
 import com.daripa.stories.model.User;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/api/user")
 public class UserController {
 
 	@Autowired

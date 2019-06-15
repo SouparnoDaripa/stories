@@ -16,7 +16,7 @@ import com.daripa.stories.dao.StoryDAO;
 import com.daripa.stories.model.Story;
 
 @RestController
-@RequestMapping("/stories")
+@RequestMapping("/api/stories")
 public class StoryController {
 
 	@Autowired
