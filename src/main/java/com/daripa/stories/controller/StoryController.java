@@ -25,7 +25,7 @@ public class StoryController {
 	/*
 	 * Save a story
 	 */
-	@PostMapping("{id}/create")
+	@PostMapping("/create")
 	public Story createStory(@Valid @RequestBody Story story, @PathVariable(value = "id") Long id) {
 		return storyDAO.save(story, id);
 	}
@@ -43,7 +43,7 @@ public class StoryController {
 	 */
 	@GetMapping("/query/1/{topic}")
 	public List<Story> getStoriesByTopic(@PathVariable(value = "topic") String topic) {
-		return storyDAO.findByTopic(topic);
+		return null;
 	}
 
 	/*
@@ -51,6 +51,6 @@ public class StoryController {
 	 */
 	@GetMapping("/query/2/{id}")
 	public List<Story> getStoriesByUserId(@PathVariable(value = "id") Long id) {
-		return storyDAO.findByAuthorId(id);
+		return null;
 	}
 }

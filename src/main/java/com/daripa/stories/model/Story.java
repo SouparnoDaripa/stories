@@ -1,8 +1,5 @@
 package com.daripa.stories.model;
 
-import java.io.Serializable;
-import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
@@ -13,21 +10,17 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.daripa.stories.model.audit.UserDateAudit;
 
 @Entity
 @Table(name = "stories")
 @EntityListeners(AuditingEntityListener.class)
-public class Story implements Serializable {
+public class Story extends UserDateAudit {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -66,27 +59,9 @@ public class Story implements Serializable {
 	 */
 	private String storyUrl;
 
-	/*
-	 * Created Date
-	 */
-	@Column(nullable = false, updatable = false)
-	@Temporal(TemporalType.TIMESTAMP)
-	@CreatedDate
-	private Date createdAt;
-
-	/*
-	 * Updated Date
-	 */
-	@Column(nullable = false)
-	@Temporal(TemporalType.TIMESTAMP)
-	@LastModifiedDate
-	@JsonIgnoreProperties
-	private Date updatedAt;
-
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "user_id", nullable = false)
 	@OnDelete(action = OnDeleteAction.CASCADE)
-	@JsonIgnoreProperties
 	private User user;
 
 	public Long getStoryId() {
@@ -143,22 +118,6 @@ public class Story implements Serializable {
 
 	public void setStoryUrl(String storyUrl) {
 		this.storyUrl = storyUrl;
-	}
-
-	public Date getCreatedAt() {
-		return createdAt;
-	}
-
-	public void setCreatedAt(Date createdAt) {
-		this.createdAt = createdAt;
-	}
-
-	public Date getUpdatedAt() {
-		return updatedAt;
-	}
-
-	public void setUpdatedAt(Date updatedAt) {
-		this.updatedAt = updatedAt;
 	}
 
 	public User getAuthor() {

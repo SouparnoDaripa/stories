@@ -96,4 +96,12 @@ public class SignUpRequest {
 	public void setGender(String gender) {
 		this.gender = gender;
 	}
+
+	public Date getDateOfBirth() {
+		return dateOfBirth;
+	}
+
+	public void setDateOfBirth(Date dateOfBirth) {
+		this.dateOfBirth = dateOfBirth;
+	}
 }

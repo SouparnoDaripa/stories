@@ -48,27 +48,6 @@ public class StoryDAO {
 	}
 
 	/*
-	 * Fetches all stories by topic from table
-	 */
-	public List<Story> findByTopic(String topic) {
-		return storyRepository.findByTopic(topic);
-	}
-
-	/*
-	 * Fetches all stories by tags from table
-	 */
-	// public List<Story> findByTags() {
-	// return storyRepository.findByTags();
-	// }
-
-	/*
-	 * Fetches all stories by author from table
-	 */
-	public List<Story> findByAuthorId(Long id) {
-		return storyRepository.findByUserId(id);
-	}
-
-	/*
 	 * Update a User from table
 	 */
 	public Story update(Story story, Long id) {
